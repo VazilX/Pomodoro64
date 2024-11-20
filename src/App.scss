@@ -1,3 +1,6 @@
-.starter {
-  font-size: 18px;
+@import './utils/mixins.scss';
+@import './utils/variables.scss';
+
+body {
+  font-family: 'Roboto', sans-serif;
 }

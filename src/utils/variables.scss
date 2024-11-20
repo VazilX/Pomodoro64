@@ -1,0 +1,15 @@
+$tablet-width: 744px;
+$desktop-width: 1024px;
+
+$focus-wave-color: #E7875F;
+$break-wave-color: #C33F2E;
+$rest-wave-color: #AC5348;
+$main-bg-color: #FFD9C9;
+
+$main-cell-opacity: 0.6;
+$active-cell-opacity: 0.9;
+$completed-cell-opacity: 0.9;
+
+$main-cell-color: rgba(255, 255, 255, $main-cell-opacity);
+$active-cell-color: rgba(255, 255, 255, $active-cell-opacity);
+$completed-cell-color: rgba(205, 205, 205, $completed-cell-opacity);
