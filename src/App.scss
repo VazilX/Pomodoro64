@@ -3,4 +3,8 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: $main-bg-color;
+  min-height: 100vh;
+  min-width: 320px;
+  width: 100vw;
 }

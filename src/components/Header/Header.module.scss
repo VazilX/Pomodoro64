@@ -1,0 +1,24 @@
+.header {
+  padding: 10px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  background-color: #fffefe;
+  padding: 6px;
+  border-radius: 90px;
+}
+
+.text {
+  color: #370000;
+  font-size: 20px;
+  font-weight: 500;
+  display: block;
+}
