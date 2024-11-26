@@ -2,16 +2,25 @@
 @import './../../utils/variables.scss';
 
 .control-button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto;
   width: 240px;
   padding: 10px;
   font-size: 20px;
-  color: #FFF0EA;
+  color: #fff0ea;
   text-transform: uppercase;
   font-weight: 500;
-  background-color: #926F6F;
+  background-color: #926f6f;
   border: none;
   cursor: pointer;
   margin-bottom: 16px;
+
+  @include onTablet {
+    margin-bottom: 50px;
+    width: 310px;
+    height: 50px;
+    font-size: 32px;
+  }
 }
