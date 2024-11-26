@@ -1,0 +1,17 @@
+@import './../../utils/mixins.scss';
+@import './../../utils/variables.scss';
+
+.control-button {
+  display: block;
+  margin: 0 auto;
+  width: 240px;
+  padding: 10px;
+  font-size: 20px;
+  color: #FFF0EA;
+  text-transform: uppercase;
+  font-weight: 500;
+  background-color: #926F6F;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 16px;
+}

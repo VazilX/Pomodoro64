@@ -1,0 +1,43 @@
+.quotation {
+  $size: 10px;
+  width: 300px;
+  margin: 0 auto;
+
+  &__text {
+    font-size: 18px;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+  }
+
+  &__loading {
+    display: flex;
+    gap: $size;
+    padding-top: 20px;
+  }
+
+  &__dot {
+    width: $size;
+    height: $size;
+    background-color: black;
+    border-radius: 50%;
+
+    animation: bounce 0.6s infinite ease-in-out alternate;
+  }
+
+  &__dot:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  &__dot:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-15px);
+    }
+  }
+}

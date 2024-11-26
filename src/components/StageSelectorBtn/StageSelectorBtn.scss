@@ -1,0 +1,73 @@
+@import './../../utils/mixins.scss';
+
+.stage-selector-btn {
+  box-sizing: border-box;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: start;
+  gap: 10px;
+  min-width: 80px;
+  background-color: #f6f0f0;
+  padding: 8px 10px;
+
+  font-size: 14px;
+
+  @include onTablet {
+  font-size: 24px;
+  }
+
+  &--focus:has(.stage-selector-btn__input:checked) {
+    background-color: #ffc0a5;
+  }
+  &--break:has(.stage-selector-btn__input:checked) {
+    background-color: #f7a69b;
+  }
+  &--rest:has(.stage-selector-btn__input:checked) {
+    background-color: #d88e84;
+  }
+
+  &__title {
+    font-weight: 400;
+    text-transform: capitalize;
+  }
+
+  &__input {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -20px;
+  }
+
+  &__icon {
+    width: 1.3em;
+    height: 1.3em;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    justify-self: end;
+
+    &--focus {
+      background-image: url(./../../img/focus.svg);
+    }
+
+    &--break {
+      background-image: url(./../../img/break.svg);
+    }
+
+    &--rest {
+      background-image: url(./../../img/rest.svg);
+    }
+  }
+
+  &__time {
+    grid-column: 1 / -1;
+    font-size: 12px;
+    justify-self: center;
+
+    @include onTablet {
+      font-size: 20px;
+    }
+  }
+}

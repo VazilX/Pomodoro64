@@ -1,0 +1,10 @@
+@import './../../utils/mixins.scss';
+@import './../../utils/variables.scss';
+
+.stage-selector {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}

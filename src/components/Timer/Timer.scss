@@ -1,0 +1,17 @@
+@import './../../utils/mixins.scss';
+@import './../../utils/variables.scss';
+
+.timer {
+  margin: 21px 0;
+
+  &__face {
+    text-align: center;
+    font-size: 94px;
+    font-weight: 300;
+    margin: 0;
+    
+    @include onTablet {
+      font-size: 140px;
+    }
+  }
+}
