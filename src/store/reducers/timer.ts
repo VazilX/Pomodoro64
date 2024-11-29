@@ -9,17 +9,24 @@ export interface Timer {
   intervalId: undefined | number;
   isWorking: boolean;
   stage: Stage;
+  strick: number;
 }
 
 const initialState: Timer = {
-  seconds: 1500,
-  focusTime: 1500,
-  breakTime: 300,
-  // breakTime: 10,
-  restTime: 900,
+  // seconds: 1500,
+  // focusTime: 1500,
+  // breakTime: 300,
+  // restTime: 900,
+
+  seconds: 5,
+  focusTime: 5,
+  breakTime: 2,
+  restTime: 3,
+
   intervalId: undefined,
   isWorking: false,
   stage: 'focus',
+  strick: 0,
 };
 
 export const timerSlice = createSlice({
@@ -68,6 +75,10 @@ export const timerSlice = createSlice({
     setIntervalId(state: Timer, action: PayloadAction<number | undefined>) {
       // eslint-disable-next-line
       state.intervalId = action.payload;
+    },
+    increaseStrick(state: Timer) {
+      // eslint-disable-next-line
+      state.strick++;
     },
   },
 });

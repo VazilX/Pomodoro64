@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import './Timer.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { timerSlice } from '../../store/reducers/timer';
+import { BEFORE_REST } from '../../utils/variables';
 
 export const Timer: React.FC = () => {
-  const { seconds, intervalId, isWorking, stage } = useAppSelector(
+  const { seconds, intervalId, isWorking, stage, strick } = useAppSelector(
     state => state.timer,
   );
-  const { decrement, setIntervalId, timerSwitch } = timerSlice.actions;
+  const { decrement, setIntervalId, timerSwitch, increaseStrick } =
+    timerSlice.actions;
   const dispatch = useAppDispatch();
 
   const abort = () => {
@@ -33,17 +35,29 @@ export const Timer: React.FC = () => {
 
   if (seconds === 0) {
     abort();
+
+    const audio = new Audio('./sounds/sound_notific.mp3');
+
+    audio.play();
+
     switch (stage) {
       case 'rest':
         dispatch(timerSwitch('focus'));
         break;
 
       case 'break':
-        dispatch(timerSwitch('rest'));
+        dispatch(timerSwitch('focus'));
         break;
 
       default:
-        dispatch(timerSwitch('break'));
+        if ((strick + 1) % BEFORE_REST !== 0) {
+          dispatch(timerSwitch('break'));
+        } else {
+          dispatch(timerSwitch('rest'));
+        }
+
+        dispatch(increaseStrick());
+
         break;
     }
   }

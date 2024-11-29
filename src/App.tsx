@@ -16,11 +16,9 @@ export const App: React.FC = () => {
   return (
     <div className="app">
       <Header />
-      <div className="app__container">
-        <main className="main">
-          <Pomodoro />
-        </main>
-      </div>
+      <main className="main">
+        <Pomodoro />
+      </main>
       <Footer />
     </div>
   );
