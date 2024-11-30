@@ -5,12 +5,6 @@
   --height-crest: 50px;
   --animation-play-state: paused;
 
-  // --animation-hight-in: pourHightIn var(--animation-duration) linear forwards
-  //   paused;
-
-  // --animation-hight-out: pourHightOut var(--animation-duration) linear forwards
-  //   paused;
-
   position: absolute;
   z-index: -100;
   left: 0;
@@ -22,16 +16,6 @@
 
   &--pouring {
     --animation-play-state: running;
-
-    // & .wave__glass-in--pour-in {
-    //   --animation-hight-in: pourHightIn var(--animation-duration) linear
-    //     forwards;
-    // }
-
-    // & .wave__glass-in--pour-out {
-    //   --animation-hight-out: pourHightOut var(--animation-duration) linear
-    //     forwards;
-    // }
   }
 
   &--focus-break {
