@@ -7,13 +7,16 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 
 export const StageSelector: React.FC = () => {
   const { stage } = useAppSelector(state => state.timer);
-  const { timerSwitch } = timerSlice.actions;
+  const { timerSwitch, refreshStrick } = timerSlice.actions;
   const dispatch = useAppDispatch();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newStage = e.target.value as Stage;
 
-    dispatch(timerSwitch(newStage));
+    if (newStage !== stage) {
+      dispatch(timerSwitch(newStage));
+      dispatch(refreshStrick());
+    }
   };
 
   return (

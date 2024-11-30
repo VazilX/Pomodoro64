@@ -1,74 +1,76 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Wave.scss';
 import classNames from 'classnames';
 import { useAppSelector } from '../../hooks/redux';
-import {
-  BREAK_WAVE_COLOR,
-  FOCUS_WAVE_COLOR,
-  REST_WAVE_COLOR,
-} from '../../utils/variables';
+import { BEFORE_REST } from '../../utils/variables';
+import { Stage } from '../../types/Stage';
 
 export const Wave: React.FC = () => {
-  const ref = useRef<HTMLDivElement>(null);
+  const [stageTo, setStageTo] = useState<Stage>('break');
 
-  const { stage, isWorking, seconds } = useAppSelector(state => state.timer);
+  const refWave = useRef<HTMLDivElement>(null);
+  const refCrest = useRef<HTMLDivElement>(null);
+  const refLiquid = useRef<HTMLDivElement>(null);
+
+  const { stage, isWorking, seconds, strick } = useAppSelector(
+    state => state.timer,
+  );
 
   const resetAnimations = () => {
-    if (ref.current) {
-      const style = ref.current.style;
+    if (refWave.current) {
+      const style = refWave.current.style;
 
       style.setProperty('--animation-hight-in', 'none');
       style.setProperty('--animation-hight-out', 'none');
-      style.setProperty('--animation-color', 'none');
 
       window.setTimeout(() => {
-        if (ref.current) {
+        if (refWave.current) {
           style.setProperty('--animation-hight-in', '');
           style.setProperty('--animation-hight-out', '');
-          style.setProperty('--animation-color', '');
         }
       }, 0);
     }
   };
 
   useEffect(() => {
-    if (ref.current) {
-      let colorFrom;
-      let colorTo;
-
+    if (refWave.current) {
       switch (stage) {
         case 'focus':
-          colorFrom = FOCUS_WAVE_COLOR;
-          colorTo = BREAK_WAVE_COLOR;
+          const newStageTo =
+            (strick - 1) % BEFORE_REST === 0 && strick !== 0 ? 'rest' : 'break';
 
+          setStageTo(newStageTo);
           break;
 
         case 'break':
-          colorFrom = BREAK_WAVE_COLOR;
-          colorTo = FOCUS_WAVE_COLOR;
+          setStageTo('focus');
 
           break;
 
         default:
-          colorFrom = REST_WAVE_COLOR;
-          colorTo = FOCUS_WAVE_COLOR;
+          setStageTo('focus');
 
           break;
       }
 
+      const style = refWave.current.style;
+
+      style.setProperty('--animation-duration', `${seconds}s`);
+
       resetAnimations();
-
-      ref.current.style.setProperty('--color-wave-from', colorFrom);
-      ref.current.style.setProperty('--color-wave-to', colorTo);
-
-      ref.current.style.setProperty('--animation-duration', `${seconds}s`);
     }
-  }, [ref, stage]);
+  }, [refWave, stage]);
 
   return (
     <div
-      className={classNames('wave', { 'wave--pouring': isWorking })}
-      ref={ref}
+      className={classNames('wave', {
+        'wave--pouring': isWorking,
+        'wave--focus-break': stage === 'focus' && stageTo === 'break',
+        'wave--focus-rest': stage === 'focus' && stageTo === 'rest',
+        'wave--break-focus': stage === 'break' && stageTo === 'focus',
+        'wave--rest-focus': stage === 'rest' && stageTo === 'focus',
+      })}
+      ref={refWave}
     >
       <div className="wave__wrapper">
         <div className="wave__glass">
@@ -78,33 +80,13 @@ export const Wave: React.FC = () => {
               'wave__glass-in--pour-out': stage !== 'focus',
             })}
           >
-            <div
-              className={classNames('wave__crest', {
-                'wave__crest--pour-in': true,
-                'wave__crest--pour-out': false,
-              })}
-            ></div>
-            <div
-              className={classNames('wave__crest', {
-                'wave__crest--pour-in': true,
-                'wave__crest--pour-out': false,
-              })}
-            ></div>
-            <div
-              className={classNames('wave__crest', {
-                'wave__crest--pour-in': true,
-                'wave__crest--pour-out': false,
-              })}
-            ></div>
-            <div
-              className={classNames('wave__crest', {
-                'wave__crest--pour-in': true,
-                'wave__crest--pour-out': false,
-              })}
-            ></div>
+            <div className="wave__crest" ref={refCrest}></div>
+            <div className="wave__crest" ref={refCrest}></div>
+            <div className="wave__crest" ref={refCrest}></div>
+            <div className="wave__crest" ref={refCrest}></div>
 
             <div className="wave__air"></div>
-            <div className="wave__liquid"></div>
+            <div className="wave__liquid" ref={refLiquid}></div>
           </div>
         </div>
       </div>

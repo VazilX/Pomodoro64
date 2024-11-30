@@ -33,34 +33,36 @@ export const Timer: React.FC = () => {
     };
   }, [isWorking]);
 
-  if (seconds === 0) {
-    abort();
+  useEffect(() => {
+    if (seconds <= 0) {
+      abort();
 
-    const audio = new Audio('./sounds/sound_notific.mp3');
+      const audio = new Audio('./sounds/sound_notific.mp3');
 
-    audio.play();
+      audio.play();
 
-    switch (stage) {
-      case 'rest':
-        dispatch(timerSwitch('focus'));
-        break;
+      switch (stage) {
+        case 'rest':
+          dispatch(timerSwitch('focus'));
+          break;
 
-      case 'break':
-        dispatch(timerSwitch('focus'));
-        break;
+        case 'break':
+          dispatch(timerSwitch('focus'));
+          break;
 
-      default:
-        if ((strick + 1) % BEFORE_REST !== 0) {
-          dispatch(timerSwitch('break'));
-        } else {
-          dispatch(timerSwitch('rest'));
-        }
+        default:
+          if ((strick + 1) % BEFORE_REST !== 0) {
+            dispatch(timerSwitch('break'));
+          } else {
+            dispatch(timerSwitch('rest'));
+          }
 
-        dispatch(increaseStrick());
+          dispatch(increaseStrick());
 
-        break;
+          break;
+      }
     }
-  }
+  }, [seconds]);
 
   const minutes = Math.floor(seconds / 60)
     .toString()

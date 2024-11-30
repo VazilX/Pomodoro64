@@ -18,8 +18,8 @@ const initialState: Timer = {
   // breakTime: 300,
   // restTime: 900,
 
-  seconds: 5,
-  focusTime: 5,
+  seconds: 2,
+  focusTime: 2,
   breakTime: 2,
   restTime: 3,
 
@@ -79,6 +79,10 @@ export const timerSlice = createSlice({
     increaseStrick(state: Timer) {
       // eslint-disable-next-line
       state.strick++;
+    },
+    refreshStrick(state: Timer) {
+      // eslint-disable-next-line
+      state.strick = 0;
     },
   },
 });

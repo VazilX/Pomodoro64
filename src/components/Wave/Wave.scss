@@ -3,30 +3,55 @@
 
 .wave {
   --height-crest: 50px;
-  --animation-duration: 10s;
-  --animation-color: pourColor var(--animation-duration) linear forwards paused;
-  --animation-hight-in: pourHightIn var(--animation-duration) linear forwards paused;
-  --animation-hight-out: pourHightOut var(--animation-duration) linear forwards paused;
+  --animation-play-state: paused;
+
+  // --animation-hight-in: pourHightIn var(--animation-duration) linear forwards
+  //   paused;
+
+  // --animation-hight-out: pourHightOut var(--animation-duration) linear forwards
+  //   paused;
 
   position: absolute;
   z-index: -100;
   left: 0;
-  height: 100%;
   bottom: 0;
+  height: 100%;
   width: 100%;
   overflow: hidden;
   background-color: inherit;
 
   &--pouring {
-    --animation-color: pourColor var(--animation-duration) linear forwards;
+    --animation-play-state: running;
 
-    & .wave__glass-in--pour-in {
-      --animation-hight-in: pourHightIn var(--animation-duration) linear forwards;
-    }
+    // & .wave__glass-in--pour-in {
+    //   --animation-hight-in: pourHightIn var(--animation-duration) linear
+    //     forwards;
+    // }
 
-    & .wave__glass-in--pour-out {
-      --animation-hight-out: pourHightOut var(--animation-duration) linear forwards;
-    }
+    // & .wave__glass-in--pour-out {
+    //   --animation-hight-out: pourHightOut var(--animation-duration) linear
+    //     forwards;
+    // }
+  }
+
+  &--focus-break {
+    --animation-color: pourColorFocusBreak var(--animation-duration) linear
+      forwards;
+  }
+
+  &--focus-rest {
+    --animation-color: pourColorFocusRest var(--animation-duration) linear
+      forwards;
+  }
+
+  &--break-focus {
+    --animation-color: pourColorBreakFocus var(--animation-duration) linear
+      forwards;
+  }
+
+  &--rest-focus {
+    --animation-color: pourColorRestFocus var(--animation-duration) linear
+      forwards;
   }
 
   &__wrapper {
@@ -35,9 +60,9 @@
   }
 
   &__glass {
-    width: 100%;
     position: absolute;
     bottom: 0;
+    width: 100%;
     height: 100%;
 
     display: flex;
@@ -48,11 +73,13 @@
     position: relative;
 
     &--pour-in {
-      animation: var(--animation-hight-in);
+      animation: pourHightIn var(--animation-duration) linear forwards
+        var(--animation-play-state);
     }
 
     &--pour-out {
-      animation: var(--animation-hight-out);
+      animation: pourHightOut var(--animation-duration) linear forwards
+        var(--animation-play-state);
     }
   }
 
@@ -62,28 +89,26 @@
     transform: translateX(-30%);
     width: 120%;
     height: calc(var(--height-crest) * 2);
-    background: var(--color-wave-from);
+    border-radius: 50%;
     animation:
       waveMove1 5s linear infinite alternate,
-      var(--animation-color);
-
-    border-radius: 50%;
+      var(--animation-color) var(--animation-play-state);
 
     &:nth-child(2) {
       animation:
         waveMove1 5s linear 3s infinite alternate,
-        var(--animation-color);
+        var(--animation-color) var(--animation-play-state);
     }
     &:nth-child(3) {
       animation:
         waveMove2 5s linear infinite alternate,
-        var(--animation-color);
+        var(--animation-color) var(--animation-play-state);
       transform: translateX(50%);
     }
     &:nth-child(4) {
       animation:
         waveMove2 5s linear 2s infinite alternate,
-        var(--animation-color);
+        var(--animation-color) var(--animation-play-state);
       transform: translateX(50%);
     }
   }
@@ -98,39 +123,25 @@
     width: 100%;
     height: 100%;
 
-    animation: var(--animation-color);
+    animation: var(--animation-color) var(--animation-play-state);
   }
 }
 
 @keyframes waveMove1 {
   0% {
     transform: translateX(-30%);
-    background-color: var(--color-wave-from, $focus-wave-color);
   }
   100% {
     transform: translateX(30%);
-    background-color: var(--color-wave-to, $focus-wave-color);
   }
 }
 
 @keyframes waveMove2 {
   0% {
     transform: translateX(50%);
-    background-color: var(--color-wave-from, $focus-wave-color);
   }
   100% {
     transform: translateX(-50%);
-    background-color: var(--color-wave-from, $focus-wave-color);
-  }
-}
-
-@keyframes pourColor {
-  0% {
-    background-color: var(--color-wave-from, $focus-wave-color);
-  }
-
-  100% {
-    background-color: var(--color-wave-to, $focus-wave-color);
   }
 }
 
@@ -151,5 +162,45 @@
 
   100% {
     height: var(--height-crest);
+  }
+}
+
+@keyframes pourColorFocusBreak {
+  0% {
+    background-color: $focus-wave-color;
+  }
+
+  100% {
+    background-color: $break-wave-color;
+  }
+}
+
+@keyframes pourColorFocusRest {
+  0% {
+    background-color: $focus-wave-color;
+  }
+
+  100% {
+    background-color: $rest-wave-color;
+  }
+}
+
+@keyframes pourColorRestFocus {
+  0% {
+    background-color: $rest-wave-color;
+  }
+
+  100% {
+    background-color: $focus-wave-color;
+  }
+}
+
+@keyframes pourColorBreakFocus {
+  0% {
+    background-color: $break-wave-color;
+  }
+
+  100% {
+    background-color: $focus-wave-color;
   }
 }
