@@ -1,0 +1,53 @@
+@import './../../utils/mixins.scss';
+@import './../../utils/variables.scss';
+
+.add-task-form {
+  --input-pudding: 8px;
+
+  &__input {
+    grid-column: 1 / 3;
+    background-color: inherit;
+    padding: var(--input-pudding);
+    border-radius: inherit;
+    border: none;
+    outline: none;
+
+    &--title {
+    }
+
+    &--desc {
+      resize: none;
+    }
+
+    &--err {
+      border: 1px solid red;
+      
+      &::placeholder {
+        color: red;
+      }
+    }
+  }
+
+  &__check-desc-h {
+    box-sizing: border-box;
+    position: absolute;
+    z-index: -100;
+    padding: var(--input-pudding);
+  }
+
+  &__btn {
+    cursor: pointer;
+    grid-column: 3;
+    grid-row: 1;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    border: none;
+
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url('./../../img/send.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}

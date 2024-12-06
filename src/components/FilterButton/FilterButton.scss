@@ -1,0 +1,27 @@
+@import './../../utils/mixins.scss';
+@import './../../utils/variables.scss';
+
+.filter-button {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 14px;
+  text-transform: capitalize;
+  padding: 5px 25px;
+  font-size: 12px;
+  cursor: pointer;
+
+  @include onTablet {
+    font-size: 16px;
+    padding: 3px 16px;
+  }
+
+  &:has(.filter-button__input:checked) {
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+
+  &__input {
+    position: absolute;
+    z-index: -100;
+    width: 0;
+    height: 0;
+  }
+}

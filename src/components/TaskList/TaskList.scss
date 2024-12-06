@@ -1,0 +1,21 @@
+@import './../../utils/mixins.scss';
+@import './../../utils/variables.scss';
+
+
+.task-list {
+  --gep: 10px;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gep);
+  margin: 0;
+  padding: 0;
+
+  margin-bottom: var(--gep);
+
+  list-style: none;
+
+  &__item {
+
+  }
+}

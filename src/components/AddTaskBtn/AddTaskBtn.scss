@@ -1,0 +1,53 @@
+@import './../../utils/mixins.scss';
+@import './../../utils/variables.scss';
+
+.add-task-btn {
+  --cross-size: 0.7em;
+
+  cursor: pointer;
+
+  width: 100%;
+
+  border: none;
+
+
+  font-size: 18px;
+  font-weight: 300;
+
+  @include onTablet {
+    font-size: 24px;
+  }
+
+  &__cross {
+    position: relative;
+    height: var(--cross-size);
+    width: var(--cross-size);
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      left: 50%;
+
+      display: block;
+      height: 100%;
+      border: 1px solid black;
+    }
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 50%;
+
+      display: block;
+      width: 100%;
+      border: 1px solid black;
+    }
+  }
+
+  &__text {
+    justify-self: start;
+
+  }
+}

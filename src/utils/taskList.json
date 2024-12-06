@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Complete project setup",
+    "description": "Initialize repository and configure environment.",
+    "isCompleted": false
+  },
+  {
+    "title": "Design homepage layout",
+    "description": "Create wireframe and implement basic layout structure.",
+    "isCompleted": true
+  },
+  {
+    "title": "Implement authentication",
+    "description": "Set up login, registration, and user session management.",
+    "isCompleted": false
+  },
+  {
+    "title": "Optimize performance",
+    "description": "Improve loading times and reduce resource usage.",
+    "isCompleted": true
+  },
+  {
+    "title": "Write documentation",
+    "description": "Document key features and provide usage guidelines.",
+    "isCompleted": false
+  }
+]

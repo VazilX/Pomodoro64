@@ -1,6 +1,8 @@
 $tablet-width: 744px;
 $desktop-width: 1024px;
 
+$animation-duration: 200ms;
+
 $focus-wave-color: #E7875F;
 $break-wave-color: #C33F2E;
 $rest-wave-color: #AC5348;
@@ -8,7 +10,7 @@ $main-bg-color: #FFD9C9;
 
 $main-cell-opacity: 0.6;
 $active-cell-opacity: 0.9;
-$completed-cell-opacity: 0.9;
+$completed-cell-opacity: 0.4;
 
 $main-cell-color: rgba(255, 255, 255, $main-cell-opacity);
 $active-cell-color: rgba(255, 255, 255, $active-cell-opacity);

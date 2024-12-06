@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import timer from './reducers/timer';
+import task from './reducers/task';
 
 const rootReducer = combineReducers({
   timer,
+  task,
 });
 
 export const setupStore = () => {
