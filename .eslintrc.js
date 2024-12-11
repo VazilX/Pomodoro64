@@ -1,5 +1,9 @@
 module.exports = {
-  extends: ['@mate-academy/eslint-config-react-typescript'],
+  extends: [
+    '@mate-academy/eslint-config-react-typescript',
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+  ],
   rules: {
     'max-len': [
       'error',
