@@ -92,7 +92,6 @@ export const TaskCell: React.FC<Props> = ({ task }) => {
             />
             is completed
           </label>
-
           <h2
             className={classNames('task-cell__title', {
               'task-cell__title--checked': isCompleted,
@@ -109,8 +108,10 @@ export const TaskCell: React.FC<Props> = ({ task }) => {
               {description}
             </p>
           )}
-
-          <button className="task-cell__bin" onClick={deleteTask}></button>
+          <button className="task-cell__bin" onClick={deleteTask}>
+            <div className="task-cell__bin-top"></div>
+            <div className="task-cell__bin-down"></div>
+          </button>
         </div>
       )}
     </>

@@ -3,7 +3,6 @@
 
 .wave {
   --height-crest: 50px;
-  --animation-play-state: paused;
 
   position: absolute;
   z-index: -100;
@@ -13,30 +12,6 @@
   width: 100%;
   overflow: hidden;
   background-color: inherit;
-
-  &--pouring {
-    --animation-play-state: running;
-  }
-
-  &--focus-break {
-    --animation-color: pourColorFocusBreak var(--animation-duration) linear
-      forwards;
-  }
-
-  &--focus-rest {
-    --animation-color: pourColorFocusRest var(--animation-duration) linear
-      forwards;
-  }
-
-  &--break-focus {
-    --animation-color: pourColorBreakFocus var(--animation-duration) linear
-      forwards;
-  }
-
-  &--rest-focus {
-    --animation-color: pourColorRestFocus var(--animation-duration) linear
-      forwards;
-  }
 
   &__wrapper {
     position: relative;
@@ -56,15 +31,7 @@
   &__glass-in {
     position: relative;
 
-    &--pour-in {
-      animation: pourHightIn var(--animation-duration) linear forwards
-        var(--animation-play-state);
-    }
-
-    &--pour-out {
-      animation: pourHightOut var(--animation-duration) linear forwards
-        var(--animation-play-state);
-    }
+    transition: height #{$animation-duration} linear;
   }
 
   &__crest {
@@ -74,25 +41,23 @@
     width: 120%;
     height: calc(var(--height-crest) * 2);
     border-radius: 50%;
-    animation:
-      waveMove1 5s linear infinite alternate,
-      var(--animation-color) var(--animation-play-state);
+
+    background-color: var(--bg-color);
+
+    transition: var(--transition-bg);
+    transition-duration: var(--transition-duration);
+
+    animation: waveMove1 5s linear infinite alternate;
 
     &:nth-child(2) {
-      animation:
-        waveMove1 5s linear 3s infinite alternate,
-        var(--animation-color) var(--animation-play-state);
+      animation: waveMove1 5s linear 3s infinite alternate;
     }
     &:nth-child(3) {
-      animation:
-        waveMove2 5s linear infinite alternate,
-        var(--animation-color) var(--animation-play-state);
+      animation: waveMove2 5s linear infinite alternate;
       transform: translateX(50%);
     }
     &:nth-child(4) {
-      animation:
-        waveMove2 5s linear 2s infinite alternate,
-        var(--animation-color) var(--animation-play-state);
+      animation: waveMove2 5s linear 2s infinite alternate;
       transform: translateX(50%);
     }
   }
@@ -107,7 +72,10 @@
     width: 100%;
     height: 100%;
 
-    animation: var(--animation-color) var(--animation-play-state);
+    background-color: var(--bg-color);
+
+    transition: var(--transition-bg);
+    transition-duration: var(--transition-duration);
   }
 }
 
@@ -126,65 +94,5 @@
   }
   100% {
     transform: translateX(-50%);
-  }
-}
-
-@keyframes pourHightIn {
-  0% {
-    height: var(--height-crest);
-  }
-
-  100% {
-    height: 100%;
-  }
-}
-
-@keyframes pourHightOut {
-  0% {
-    height: 100%;
-  }
-
-  100% {
-    height: var(--height-crest);
-  }
-}
-
-@keyframes pourColorFocusBreak {
-  0% {
-    background-color: $focus-wave-color;
-  }
-
-  100% {
-    background-color: $break-wave-color;
-  }
-}
-
-@keyframes pourColorFocusRest {
-  0% {
-    background-color: $focus-wave-color;
-  }
-
-  100% {
-    background-color: $rest-wave-color;
-  }
-}
-
-@keyframes pourColorRestFocus {
-  0% {
-    background-color: $rest-wave-color;
-  }
-
-  100% {
-    background-color: $focus-wave-color;
-  }
-}
-
-@keyframes pourColorBreakFocus {
-  0% {
-    background-color: $break-wave-color;
-  }
-
-  100% {
-    background-color: $focus-wave-color;
   }
 }

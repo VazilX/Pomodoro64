@@ -9,6 +9,10 @@
   &--completed {
     background-color: $completed-cell-color;
     color: rgba(0, 0, 0, 0.5);
+
+    @include hover {
+      background-color: rgba(225, 225, 225, 0.5);
+    }
   }
 
   &__check {
@@ -91,11 +95,42 @@
     width: 100%;
     aspect-ratio: 1 / 1;
 
+    display: flex;
+    flex-direction: column;
+
+    padding: 0;
+
     border: none;
     background-color: rgba(255, 255, 255, 0);
-    background-image: url('./../../img/bin.svg');
-    background-position: center;
+
+    @include hover {
+      .task-cell__bin-top {
+        transform: translateX(30%) translateY(-1px) rotate(30deg);
+      }
+    }
+  }
+
+  &__bin-top,
+  &__bin-down {
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: cover;
+    margin: 0 auto;
+  }
+
+  &__bin-top {
+    height: 25%;
+    width: 100%;
+    background-image: url('./../../img/bin_top.svg');
+    background-position: bottom -1px;
+
+    transition: all #{$animation-duration} ease-in;
+  }
+
+  &__bin-down {
+    height: 75%;
+    width: 75%;
+
+    background-image: url('./../../img/bin_down.svg');
+    background-position: top;
   }
 }

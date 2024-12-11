@@ -8,9 +8,10 @@
   }
 }
 
-@mixin onDesktop {
-  @media (min-width: $desktop-width) {
-    & {
+@mixin hover {
+  transition: all #{$animation-duration} ease-in;
+  @media (hover: hover) {
+    &:hover {
       @content;
     }
   }

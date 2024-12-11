@@ -2,76 +2,87 @@ import React, { useEffect, useRef, useState } from 'react';
 import './Wave.scss';
 import classNames from 'classnames';
 import { useAppSelector } from '../../hooks/redux';
-import { BEFORE_REST } from '../../utils/variables';
+import { BEFORE_REST, WAVE_COLOR } from '../../utils/variables';
 import { Stage } from '../../types/Stage';
 
 export const Wave: React.FC = () => {
-  const [stageTo, setStageTo] = useState<Stage>('break');
+  const [speed, setSpeed] = useState(0);
 
-  const refWave = useRef<HTMLDivElement>(null);
-  const refCrest = useRef<HTMLDivElement>(null);
+  const refGlassIn = useRef<HTMLDivElement>(null);
   const refLiquid = useRef<HTMLDivElement>(null);
 
   const { stage, isWorking, seconds, strick } = useAppSelector(
     state => state.timer,
   );
 
-  const resetAnimations = () => {
-    if (refWave.current) {
-      const style = refWave.current.style;
-
-      style.setProperty('--animation-hight-in', 'none');
-      style.setProperty('--animation-hight-out', 'none');
-
-      window.setTimeout(() => {
-        if (refWave.current) {
-          style.setProperty('--animation-hight-in', '');
-          style.setProperty('--animation-hight-out', '');
-        }
-      }, 0);
+  const pauseBG = () => {
+    if (!refLiquid.current) {
+      return;
     }
+
+    const main = document.querySelector('.main') as HTMLDivElement;
+
+    const currentColor = getComputedStyle(refLiquid.current).backgroundColor;
+
+    main.style.setProperty('--bg-color', `${currentColor}`);
   };
 
   useEffect(() => {
-    if (refWave.current) {
-      switch (stage) {
-        case 'focus':
-          const newStageTo =
-            (strick - 1) % BEFORE_REST === 0 && strick !== 0 ? 'rest' : 'break';
+    if (!refGlassIn.current) {
+      return;
+    }
 
-          setStageTo(newStageTo);
-          break;
+    const currentHight = refGlassIn.current.style.height;
 
-        case 'break':
-          setStageTo('focus');
+    refGlassIn.current.style.height =
+      stage === 'focus'
+        ? `calc(${currentHight} + ${speed}%)`
+        : `calc(${currentHight} - ${speed}%)`;
 
-          break;
+    refGlassIn.current.style.transitionDuration = '1s';
+  }, [seconds]);
 
-        default:
-          setStageTo('focus');
+  useEffect(() => {
+    if (isWorking) {
+      let nextColor: Stage;
 
-          break;
+      if (stage === 'focus') {
+        nextColor =
+          (strick - 1) % BEFORE_REST === 0 && strick !== 0 ? 'rest' : 'break';
+      } else {
+        nextColor = 'focus';
       }
 
-      const style = refWave.current.style;
+      const main = document.querySelector('.main') as HTMLDivElement;
 
-      style.setProperty('--animation-duration', `${seconds}s`);
-
-      resetAnimations();
+      main.style.setProperty('--bg-color', `${WAVE_COLOR[nextColor]}`);
+      main.style.setProperty('--transition-duration', `${seconds}s`);
+    } else {
+      pauseBG();
     }
-  }, [refWave, stage]);
+  }, [isWorking]);
+
+  useEffect(() => {
+    setSpeed(100 / seconds);
+
+    if (!refGlassIn.current) {
+      return;
+    }
+
+    refGlassIn.current.style.height =
+      stage === 'focus' ? 'var(--height-crest)' : '100%';
+    refGlassIn.current.style.transitionDuration = '';
+
+    pauseBG();
+
+    const main = document.querySelector('.main') as HTMLDivElement;
+
+    main.style.setProperty('--bg-color', `${WAVE_COLOR[stage]}`);
+    main.style.setProperty('--transition-duration', '');
+  }, [refGlassIn, stage]);
 
   return (
-    <div
-      className={classNames('wave', {
-        'wave--pouring': isWorking,
-        'wave--focus-break': stage === 'focus' && stageTo === 'break',
-        'wave--focus-rest': stage === 'focus' && stageTo === 'rest',
-        'wave--break-focus': stage === 'break' && stageTo === 'focus',
-        'wave--rest-focus': stage === 'rest' && stageTo === 'focus',
-      })}
-      ref={refWave}
-    >
+    <div className="wave">
       <div className="wave__wrapper">
         <div className="wave__glass">
           <div
@@ -79,11 +90,12 @@ export const Wave: React.FC = () => {
               'wave__glass-in--pour-in': stage === 'focus',
               'wave__glass-in--pour-out': stage !== 'focus',
             })}
+            ref={refGlassIn}
           >
-            <div className="wave__crest" ref={refCrest}></div>
-            <div className="wave__crest" ref={refCrest}></div>
-            <div className="wave__crest" ref={refCrest}></div>
-            <div className="wave__crest" ref={refCrest}></div>
+            <div className="wave__crest"></div>
+            <div className="wave__crest"></div>
+            <div className="wave__crest"></div>
+            <div className="wave__crest"></div>
 
             <div className="wave__air"></div>
             <div className="wave__liquid" ref={refLiquid}></div>

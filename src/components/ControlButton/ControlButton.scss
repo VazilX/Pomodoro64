@@ -17,6 +17,10 @@
   cursor: pointer;
   margin-bottom: 16px;
 
+  @include hover {
+    transform: scale(1.1);
+  }
+
   @include onTablet {
     margin-bottom: 50px;
     width: 310px;

@@ -2,6 +2,7 @@
 @import './../../utils/variables.scss';
 
 .task-tracker {
-  background-color: $focus-wave-color;
+  transition: var(--transition-bg);
+  transition-duration: var(--transition-duration);
+  background-color: var(--bg-color);
 }
-

@@ -1,4 +1,5 @@
 @import './../../utils/mixins.scss';
+@import './../../utils/variables.scss';
 
 .header {
   box-sizing: border-box;
@@ -10,8 +11,8 @@
     max-width: 600px;
   }
 
-  @include onDesktop {
-    max-width: 1020px;
+  @media (min-width: $desktop-width) {
+    max-width: 1024px;
   }
 }
 
